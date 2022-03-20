@@ -37,6 +37,7 @@ export class Game{
                     j,
                     tileNumber:count,
                     element,
+                    ladderTop:0,
                     tail:0,
                     playerPresent:[],
                     get status(){
@@ -52,6 +53,52 @@ export class Game{
                         tile.element.style.backgroundColor = this.playerColor[index]
                     }
                 })
+                if (tile.tileNumber === 99){
+                    tile.element.dataset.status = this.tileStatus.HEAD
+                    tile.tail = 41;
+                } else if (tile.tileNumber === 89){
+                    tile.element.dataset.status = this.tileStatus.HEAD
+                    tile.tail = 53;
+                } else if (tile.tileNumber === 76){
+                    tile.element.dataset.status = this.tileStatus.HEAD
+                    tile.tail = 58;
+                } else if (tile.tileNumber === 66){
+                    tile.element.dataset.status = this.tileStatus.HEAD
+                    tile.tail = 45;
+                } else if (tile.tileNumber === 54){
+                    tile.element.dataset.status = this.tileStatus.HEAD
+                    tile.tail = 31;
+                } else if (tile.tileNumber === 43){
+                    tile.element.dataset.status = this.tileStatus.HEAD
+                    tile.tail = 18;
+                } else if (tile.tileNumber === 40){
+                    tile.element.dataset.status = this.tileStatus.HEAD
+                    tile.tail = 3;
+                } else if (tile.tileNumber === 27){
+                    tile.element.dataset.status = this.tileStatus.HEAD
+                    tile.tail = 5;
+                } else if (tile.tileNumber === 4){
+                    tile.element.dataset.status = this.tileStatus.LADDER
+                    tile.ladderTop = 25;
+                } else if (tile.tileNumber === 13){
+                    tile.ladderTop = 46;
+                    tile.element.dataset.status = this.tileStatus.LADDER
+                } else if (tile.tileNumber === 33){
+                    tile.ladderTop = 49;
+                    tile.element.dataset.status = this.tileStatus.LADDER
+                } else if (tile.tileNumber === 42){
+                    tile.ladderTop = 63;
+                    tile.element.dataset.status = this.tileStatus.LADDER
+                } else if (tile.tileNumber === 50){
+                    tile.ladderTop = 69;
+                    tile.element.dataset.status = this.tileStatus.LADDER
+                } else if (tile.tileNumber === 62){
+                    tile.ladderTop = 81;
+                    tile.element.dataset.status = this.tileStatus.LADDER
+                } else if (tile.tileNumber === 74){
+                    tile.ladderTop = 92;
+                    tile.element.dataset.status = this.tileStatus.LADDER
+                }
 
                 count++;
                 row.push(tile)
@@ -119,4 +166,15 @@ export class Game{
         }
         return res
     }
+
+    getPositionOnBoard(tileNum){
+        for(let i = 0; i < 10; i++){
+            for(let j = 0; j < 10; j++){
+                if (this.board[i][j].tileNumber === tileNum){{
+                    return [i,j];
+                }}
+            }
+        }
+    }
+
 }

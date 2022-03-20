@@ -8,6 +8,7 @@ const goButton = document.getElementById("go")
 const turnDiv = document.getElementById("turn")
 goButton.addEventListener('click',handleSubmit)
 const rollButton = document.getElementById("roll")
+const rolledDiv = document.getElementById("rolled")
 
 // const inputPlayerCount = document.createElement("input");
 // inputPlayerCount.type = "number";
@@ -23,22 +24,22 @@ const rollButton = document.getElementById("roll")
 // submitPlayerCount.onsubmit = setupGame
 
 // function setupGame() {
-//     app.innerHTML = "" 
-// }
-
-function handleSubmit(){
-    // console.log("ok")
-    console.log(playerCount.value)
-    const newGame = new Game(playerCount.value)
-    playerCountForm.remove();
-    let count = 0;
-    newGame.board.forEach(row => {
-        if (count%2 === 0){
-            // console.log("even")
-            row = row.reverse()
-        } 
-        row.forEach(tile => {
-            playingBoard.append(tile.element);
+    //     app.innerHTML = "" 
+    // }
+    
+    function handleSubmit(){
+        // console.log("ok")
+        console.log(playerCount.value)
+        const newGame = new Game(playerCount.value)
+        playerCountForm.remove();
+        let count = 0;
+        newGame.board.forEach(row => {
+            if (count%2 === 0){
+                // console.log("even")
+                row = row.reverse()
+            } 
+            row.forEach(tile => {
+                playingBoard.append(tile.element);
             tile.element.innerHTML = tile.tileNumber;
             // console.log(tile.i,tile.j)
         })
@@ -49,8 +50,38 @@ function handleSubmit(){
     rollButton.style.backgroundColor = `${newGame.playerColor[newGame.playerTurn]}`
     rollButton.addEventListener('click',() => {
         let rolled = newGame.nextTurn();
+        rolledDiv.innerHTML = `${newGame.playerColor[newGame.playerTurn]} rolled ${rolled}`
         let res = newGame.updateBoard(rolled);
-        console.log(res)
+        // console.log(newGame.board[res[0]][res[1]].tileNumber)
+        let winOrNot = newGame.checkWin();
+        if (winOrNot[0]){
+            rollButton.style.backgroundColor = `${newGame.playerColor[winOrNot[1]]}`
+            var newRollButton = rollButton.cloneNode(true)
+            rollButton.parentNode.replaceChild(newRollButton, rollButton)
+            newRollButton.style.width = "300px"
+            newRollButton.innerHTML = `Player ${newGame.playerColor[winOrNot[1]]} WIN!!! `
+            turnDiv.remove();   
+        }
+        if (newGame.board[res[0]][res[1]].element.dataset.status === newGame.tileStatus.HEAD){
+            console.log(res[0],res[1])
+            newGame.board[res[0]][res[1]].playerPresent.pop() 
+            var newres = newGame.getPositionOnBoard(newGame.board[res[0]][res[1]].tail)
+            res[0] = newres[0]
+            res[1] = newres[1]
+            newGame.playersPosition[(newGame.playerTurn-1+newGame.playerCount)%newGame.playerCount] = newGame.board[res[0]][res[1]].tileNumber  
+            console.log(res[0],res[1])
+            
+        } else if (newGame.board[res[0]][res[1]].element.dataset.status === newGame.tileStatus.LADDER){
+            console.log(res[0],res[1])
+            newGame.board[res[0]][res[1]].playerPresent.pop() 
+            var newres = newGame.getPositionOnBoard(newGame.board[res[0]][res[1]].ladderTop)
+            res[0] = newres[0]
+            res[1] = newres[1]
+            newGame.playersPosition[(newGame.playerTurn-1+newGame.playerCount)%newGame.playerCount] = newGame.board[res[0]][res[1]].tileNumber  
+            console.log(res[0],res[1])
+
+        } 
+        console.log(newGame.board[res[0]][res[1]].tileNumber)
         let colors  = "";
         newGame.board[res[0]][res[1]].playerPresent.push(res[3])
         turnDiv.innerHTML = `Player ${newGame.playerColor[newGame.playerTurn]}'s turn`
@@ -86,14 +117,6 @@ function handleSubmit(){
         // newGame.board[res[4]][res[5]].element.style.background = "none";
         newGame.board[res[4]][res[5]].element.style.background = `linear-gradient(${colors})`
 
-        let winOrNot = newGame.checkWin();
-        if (winOrNot[0]){
-            rollButton.style.backgroundColor = `${newGame.playerColor[winOrNot[1]]}`
-            var newRollButton = rollButton.cloneNode(true)
-            rollButton.parentNode.replaceChild(newRollButton, rollButton)
-            newRollButton.style.width = "300px"
-            newRollButton.innerHTML = `Player ${newGame.playerColor[winOrNot[1]]} WIN!!! `   
-        }
 
     })
     

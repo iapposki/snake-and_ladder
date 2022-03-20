@@ -30,5 +30,12 @@
     border-radius: 40px;
     font-size: 20px;
     font-weight: bolder;
-    
+
+}
+
+#ladder1{
+    position: absolute;
+    height: 250px;
+    top: 5px;
+    left:50%
 }
