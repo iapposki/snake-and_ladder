@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <title>Snake&Ladder</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./common.css" rel="stylesheet" />
+    <link href="./index.css" rel="stylesheet" />
+</head>
+<body>
+    <h1 class="flex center">
+        Snake & Ladder ; The Game
+    </h1>
+    
+    <App class="flex center flex-column" id="app">
+        <form id="playerCountForm">
+            <label for="playerCount">Enter the number of Players</label>
+            <input id="playerCount" value="4" type="number" min="2" max="4" />
+            <button id="go" type="button">GO!</button>
+        </form>
+        <div id="playingBoard"></div>
+        <div id="turn"></div>
+        <div></div>
+        <button id="roll" type="button" style="display:none ;">Roll</button>
+    </App>
+    
+    <script src="./index.js" type="module"></script>
+</body>
+</html>
