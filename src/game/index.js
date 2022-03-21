@@ -3,7 +3,7 @@ export class Game{
     constructor(playerCount){
         this.playerCount = parseInt(playerCount);
         this.playersPosition = new Array(parseInt(playerCount)).fill(0);
-        // this.playersPosition = [3,6,11,53]
+        // this.playersPosition = [91,92]
         this.board = [];
         this.playerTurn = 0;
         this.tileStatus = {
@@ -145,10 +145,13 @@ export class Game{
 
     nextTurn(){
         var roll = Math.ceil(Math.random()*6)
+        // if (this.playersPosition[this.playerTurn] + roll < 101){
+        // }
         this.playersPosition[this.playerTurn] = this.playersPosition[this.playerTurn] + roll;
         // console.log(this.board[3][3].i,this.board[3][3].j)
         // this.board[3][3].element.style.backgroundColor = 'red';
         console.log(this.playersPosition)
+        // return [roll,this.playersPosition[this.playerTurn] + roll]
         return roll
     }
 
@@ -160,6 +163,7 @@ export class Game{
         let res = [false,0];
         for(let i = 0; i < this.playersPosition.length; i++){
             if (this.playersPosition[i] > 99){
+                // this.playersPosition[i] = 100;
                 res = [true,i];
                 
             }

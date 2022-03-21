@@ -10,6 +10,8 @@ goButton.addEventListener('click',handleSubmit)
 const rollButton = document.getElementById("roll")
 const rolledDiv = document.getElementById("rolled")
 
+app.style.display = "none"
+
 // const inputPlayerCount = document.createElement("input");
 // inputPlayerCount.type = "number";
 // inputPlayerCount.min = 2;
@@ -28,6 +30,7 @@ const rolledDiv = document.getElementById("rolled")
     // }
     
     function handleSubmit(){
+        app.style.display = "flex"
         // console.log("ok")
         console.log(playerCount.value)
         const newGame = new Game(playerCount.value)
@@ -61,6 +64,7 @@ const rolledDiv = document.getElementById("rolled")
             newRollButton.style.width = "300px"
             newRollButton.innerHTML = `Player ${newGame.playerColor[winOrNot[1]]} WIN!!! `
             turnDiv.remove();   
+            
         }
         if (newGame.board[res[0]][res[1]].element.dataset.status === newGame.tileStatus.HEAD){
             console.log(res[0],res[1])

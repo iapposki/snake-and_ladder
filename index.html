@@ -9,22 +9,52 @@
     <link href="./index.css" rel="stylesheet" />
 </head>
 <body>
-    <h1 class="flex center">
+    <h1 class="flex center flex-column">
         Snake & Ladder ; The Game
     </h1>
-    
-    <App class="flex center flex-column" id="app">
+    <h2 class="flex center flex-column">
         <form id="playerCountForm">
             <label for="playerCount">Enter the number of Players</label>
             <input id="playerCount" value="4" type="number" min="2" max="4" />
             <button id="go" type="button">GO!</button>
         </form>
-        <div id="playingBoard">
+    </h2>
+    
+    <App class="flex center flex-row w-100" id="app">
+        <div id="playingBoard" class="flex center w-100">
         </div>
-        <div id="rolled"></div>
-        <div id="turn"></div>
-        <div></div>
-        <button id="roll" type="button" style="display:none ;">Roll</button>
+        <div class="flex flex-column center w-100" style="align-items: center; justify-content: center;">
+            <div id="rolled" style="font-size: 30px; text-transform: uppercase;"></div>
+            <div id="turn" style="font-size: 20px; font-weight: bolder;"></div>
+            <button id="roll" type="button" style="display:none ;">Roll</button>
+            <div class="flex flex-row" style="gap: 40px;">
+                <div>
+                    <h3>Snakes</h4>
+                    <p>27 ==> 5<br>
+                        40 ==> 3<br>
+                        43 ==> 18<br>
+                        54 ==> 31<br>
+                        66 ==> 45<br>
+                        76 ==> 58<br>
+                        89 ==> 53<br>
+                        99 ==> 41
+                    </p>
+                </div>
+                <div>
+                    <h3>Ladders</h4>
+                    <p>4 ==> 25<br>
+                        13 ==> 46<br>
+                        33 ==> 49<br>
+                        42 ==> 63<br>
+                        50 ==> 69<br>
+                        62 ==> 81<br>
+                        74 ==> 92
+                    </p>
+                </div>
+            </div>
+            <h3>Player who crosses 100 first WINS!!!</h3>
+
+        </div>
     </App>
     
     <script src="./index.js" type="module"></script>
