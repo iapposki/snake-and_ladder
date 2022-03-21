@@ -145,14 +145,17 @@ export class Game{
 
     nextTurn(){
         var roll = Math.ceil(Math.random()*6)
-        // if (this.playersPosition[this.playerTurn] + roll < 101){
-        // }
-        this.playersPosition[this.playerTurn] = this.playersPosition[this.playerTurn] + roll;
+        var backup = roll
+        if (this.playersPosition[this.playerTurn] + roll < 101){
+            this.playersPosition[this.playerTurn] = this.playersPosition[this.playerTurn] + roll;
+        } else {
+            roll = 0;
+        }
         // console.log(this.board[3][3].i,this.board[3][3].j)
         // this.board[3][3].element.style.backgroundColor = 'red';
         console.log(this.playersPosition)
         // return [roll,this.playersPosition[this.playerTurn] + roll]
-        return roll
+        return [roll,backup]
     }
 
     currentTurn(){
@@ -162,7 +165,7 @@ export class Game{
     checkWin(){
         let res = [false,0];
         for(let i = 0; i < this.playersPosition.length; i++){
-            if (this.playersPosition[i] > 99){
+            if (this.playersPosition[i] == 100){
                 // this.playersPosition[i] = 100;
                 res = [true,i];
                 

@@ -53,8 +53,8 @@ app.style.display = "none"
     rollButton.style.backgroundColor = `${newGame.playerColor[newGame.playerTurn]}`
     rollButton.addEventListener('click',() => {
         let rolled = newGame.nextTurn();
-        rolledDiv.innerHTML = `${newGame.playerColor[newGame.playerTurn]} rolled ${rolled}`
-        let res = newGame.updateBoard(rolled);
+        rolledDiv.innerHTML = `${newGame.playerColor[newGame.playerTurn]} rolled ${rolled[1]}`
+        let res = newGame.updateBoard(rolled[1]);
         // console.log(newGame.board[res[0]][res[1]].tileNumber)
         let winOrNot = newGame.checkWin();
         if (winOrNot[0]){
@@ -66,61 +66,62 @@ app.style.display = "none"
             turnDiv.remove();   
             
         }
-        if (newGame.board[res[0]][res[1]].element.dataset.status === newGame.tileStatus.HEAD){
-            console.log(res[0],res[1])
-            newGame.board[res[0]][res[1]].playerPresent.pop() 
-            var newres = newGame.getPositionOnBoard(newGame.board[res[0]][res[1]].tail)
-            res[0] = newres[0]
-            res[1] = newres[1]
-            newGame.playersPosition[(newGame.playerTurn-1+newGame.playerCount)%newGame.playerCount] = newGame.board[res[0]][res[1]].tileNumber  
-            console.log(res[0],res[1])
-            
-        } else if (newGame.board[res[0]][res[1]].element.dataset.status === newGame.tileStatus.LADDER){
-            console.log(res[0],res[1])
-            newGame.board[res[0]][res[1]].playerPresent.pop() 
-            var newres = newGame.getPositionOnBoard(newGame.board[res[0]][res[1]].ladderTop)
-            res[0] = newres[0]
-            res[1] = newres[1]
-            newGame.playersPosition[(newGame.playerTurn-1+newGame.playerCount)%newGame.playerCount] = newGame.board[res[0]][res[1]].tileNumber  
-            console.log(res[0],res[1])
+        if (rolled[0] != 0){
+            if (newGame.board[res[0]][res[1]].element.dataset.status === newGame.tileStatus.HEAD){
+                console.log(res[0],res[1])
+                newGame.board[res[0]][res[1]].playerPresent.pop() 
+                var newres = newGame.getPositionOnBoard(newGame.board[res[0]][res[1]].tail)
+                res[0] = newres[0]
+                res[1] = newres[1]
+                newGame.playersPosition[(newGame.playerTurn-1+newGame.playerCount)%newGame.playerCount] = newGame.board[res[0]][res[1]].tileNumber  
+                console.log(res[0],res[1])
+                
+            } else if (newGame.board[res[0]][res[1]].element.dataset.status === newGame.tileStatus.LADDER){
+                console.log(res[0],res[1])
+                newGame.board[res[0]][res[1]].playerPresent.pop() 
+                var newres = newGame.getPositionOnBoard(newGame.board[res[0]][res[1]].ladderTop)
+                res[0] = newres[0]
+                res[1] = newres[1]
+                newGame.playersPosition[(newGame.playerTurn-1+newGame.playerCount)%newGame.playerCount] = newGame.board[res[0]][res[1]].tileNumber  
+                console.log(res[0],res[1])
 
-        } 
-        console.log(newGame.board[res[0]][res[1]].tileNumber)
-        let colors  = "";
-        newGame.board[res[0]][res[1]].playerPresent.push(res[3])
-        turnDiv.innerHTML = `Player ${newGame.playerColor[newGame.playerTurn]}'s turn`
-        rollButton.style.backgroundColor = `${newGame.playerColor[newGame.playerTurn]}`
+            } 
+            console.log(newGame.board[res[0]][res[1]].tileNumber)
+            let colors  = "";
+            newGame.board[res[0]][res[1]].playerPresent.push(res[3])
+            turnDiv.innerHTML = `Player ${newGame.playerColor[newGame.playerTurn]}'s turn`
+            rollButton.style.backgroundColor = `${newGame.playerColor[newGame.playerTurn]}`
 
 
-        for (let i = 0; i < newGame.board[res[0]][res[1]].playerPresent.length; i++){
-            if (colors === ""){
-                colors = newGame.playerColor[newGame.board[res[0]][res[1]].playerPresent[i]] + "," + newGame.playerColor[newGame.board[res[0]][res[1]].playerPresent[i]]
-            } else {
-                colors = colors + "," + newGame.playerColor[newGame.board[res[0]][res[1]].playerPresent[i]] + "," + newGame.playerColor[newGame.board[res[0]][res[1]].playerPresent[i]]
-            }
-        }
-        console.log(colors)
-        newGame.board[res[0]][res[1]].element.style.background = `linear-gradient(${colors})`
-        colors  = "";
-        
-        
-        if (newGame.board[res[4]][res[5]].playerPresent.length < 1){
-            newGame.board[res[4]][res[5]].element.style.background = "none";
-            newGame.board[res[4]][res[5]].element.style.backgroundColor = "white";
-            // console.log(newGame.board[res[4]][res[5]].element.style.backgroundColor)
-        } else {
-            for (let i = 0; i < newGame.board[res[4]][res[5]].playerPresent.length; i++){
+            for (let i = 0; i < newGame.board[res[0]][res[1]].playerPresent.length; i++){
                 if (colors === ""){
-                    colors = newGame.playerColor[newGame.board[res[4]][res[5]].playerPresent[i]] + "," + newGame.playerColor[newGame.board[res[4]][res[5]].playerPresent[i]]
+                    colors = newGame.playerColor[newGame.board[res[0]][res[1]].playerPresent[i]] + "," + newGame.playerColor[newGame.board[res[0]][res[1]].playerPresent[i]]
                 } else {
-                    colors = colors + "," + newGame.playerColor[newGame.board[res[4]][res[5]].playerPresent[i]] + "," + newGame.playerColor[newGame.board[res[4]][res[5]].playerPresent[i]]
+                    colors = colors + "," + newGame.playerColor[newGame.board[res[0]][res[1]].playerPresent[i]] + "," + newGame.playerColor[newGame.board[res[0]][res[1]].playerPresent[i]]
                 }
             }
+            console.log(colors)
+            newGame.board[res[0]][res[1]].element.style.background = `linear-gradient(${colors})`
+            colors  = "";
+            
+            
+            if (newGame.board[res[4]][res[5]].playerPresent.length < 1){
+                newGame.board[res[4]][res[5]].element.style.background = "none";
+                newGame.board[res[4]][res[5]].element.style.backgroundColor = "white";
+                // console.log(newGame.board[res[4]][res[5]].element.style.backgroundColor)
+            } else {
+                for (let i = 0; i < newGame.board[res[4]][res[5]].playerPresent.length; i++){
+                    if (colors === ""){
+                        colors = newGame.playerColor[newGame.board[res[4]][res[5]].playerPresent[i]] + "," + newGame.playerColor[newGame.board[res[4]][res[5]].playerPresent[i]]
+                    } else {
+                        colors = colors + "," + newGame.playerColor[newGame.board[res[4]][res[5]].playerPresent[i]] + "," + newGame.playerColor[newGame.board[res[4]][res[5]].playerPresent[i]]
+                    }
+                }
+            }
+            newGame.board[res[4]][res[5]].playerPresent.shift()
+            // newGame.board[res[4]][res[5]].element.style.background = "none";
+            newGame.board[res[4]][res[5]].element.style.background = `linear-gradient(${colors})`
         }
-        newGame.board[res[4]][res[5]].playerPresent.shift()
-        // newGame.board[res[4]][res[5]].element.style.background = "none";
-        newGame.board[res[4]][res[5]].element.style.background = `linear-gradient(${colors})`
-
 
     })
     
